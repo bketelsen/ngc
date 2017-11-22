@@ -3,7 +3,7 @@ release:
   github:
     owner: bketelsen
     name: newgo
-    name_template: '{{`{{.Tag}}`}}'
+  name_template: '{{`{{.Tag}}`}}'
 brew:
   commit_author:
     name: newgo
@@ -37,7 +37,7 @@ archive:
 fpm:
   bindir: /usr/local/bin
 snapshot:
-name_template: SNAPSHOT-{{`{{.Commit }}`}}
+  name_template: SNAPSHOT-{{`{{.Commit }}`}}
 checksum:
-name_template: '{{`{{.ProjectName }}`}}_{{`{{.Version }}`}}_checksums.txt'
+  name_template: '{{`{{.ProjectName }}`}}_{{`{{.Version }}`}}_checksums.txt'
 
