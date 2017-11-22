@@ -102,6 +102,24 @@ appropriate for your project.`,
 			fmt.Print("execute main template: ", err)
 			return
 		}
+
+		envrc := filepath.Join(getSrcPath(), "github.com", "bketelsen", "newgo", "templates", "envrc.tmpl")
+		rt, err = template.ParseFiles(envrc)
+		if err != nil {
+			fmt.Println(errors.Wrap(err, "reading envrc template"))
+			return
+		}
+		rm, err = os.Create(filepath.Join(ProjectPath(), ".envrc"))
+		if err != nil {
+			fmt.Println("create envrc: ", err)
+			return
+		}
+		defer rm.Close()
+		err = rt.Execute(rm, data)
+		if err != nil {
+			fmt.Print("execute envrc template: ", err)
+			return
+		}
 	},
 }
 
