@@ -37,7 +37,7 @@ tags: .GOPATH/.ok
 	$Q @git tag
 
 .PHONY: release
-release: clean-dist
+release: clean-dist build
 	goreleaser
 
 ### Code not in the repository root? Another binary? Add to the path like this.
