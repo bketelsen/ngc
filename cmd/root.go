@@ -24,6 +24,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 	"text/template"
 
 	homedir "github.com/mitchellh/go-homedir"
@@ -48,6 +49,7 @@ appropriate for your project.`,
 		data := make(map[string]string)
 		data["ProjectPath"] = guessImportPath()
 		data["DockerImage"] = DockerImage()
+		data["GithubRepo"] = strings.Replace(guessImportPath(), "github.com/", "", -1)
 
 		dockerfile := filepath.Join(getSrcPath(), "github.com", "bketelsen", "newgo", "templates", "Dockerfile.tmpl")
 		rt, err := template.ParseFiles(dockerfile)

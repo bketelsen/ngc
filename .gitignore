@@ -3,3 +3,4 @@
 .vscode/
 newgo
 dist/
+build/
