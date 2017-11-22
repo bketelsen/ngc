@@ -3,7 +3,7 @@
 # If you change this, run `make clean`. Read more: https://git.io/vM7zV
 IMPORT_PATH := github.com/bketelsen/newgo
 DOCKER_IMAGE := newgo
-build_dir := $(CURDIR)/build
+build_dir := $(CURDIR)/bin
 dist_dir := $(CURDIR)/dist
 exec := $(DOCKER_IMAGE)
 github_repo := bketelsen/newgo
@@ -18,62 +18,27 @@ all: test build
 
 .PHONY: clean-build
 clean-build:
-	@echo "Removing build files" \
+	@echo "Removing build files"
 	rm -rf $(build_dir)
 
 .PHONY: clean-dist
 clean-dist:
-	@echo "Removing distribution files" \
+	@echo "Removing distribution files"
 	rm -rf $(dist_dir)
 
 .PHONY: build
 build: .GOPATH/.ok
-	@echo "Building..." \
-	$Q go install $(if $V,-v) $(VERSION_FLAGS) $(IMPORT_PATH) 
+	@echo "Building..."
+	$Q go install $(if $V,-v) $(VERSION_FLAGS) $(IMPORT_PATH)
 
-cross-build: clean-build .GOPATH/.ok
-	@echo "Cross Building..." \
-	mkdir -p $(build_dir) \
-	@echo "Building targets" \
-	@gox $(VERSION_FLAGS) \
-		-osarch="darwin/amd64" \
-		-osarch="freebsd/amd64" \
-		-osarch="linux/amd64" \
-		-osarch="netbsd/amd64" \
-		-osarch="openbsd/amd64" \
-		-osarch="windows/amd64" \
-		-output "$(build_dir)/$(exec)-$(VERSION)-{{.OS}}-{{.Arch}}/$(exec)/bin/$(exec)"
-	@for f in $$(ls $(build_dir)); do \
-		readme_source="$(CURDIR)/README.md"; \
-		readme_dest="$(build_dir)/$$f/$(exec)/"; \
-		echo "Copying $$readme_source into $$readme_dest"; \
-		cp $$readme_source $$readme_dest; \
-		license_source="$(CURDIR)/LICENSE"; \
-		license_dest="$(build_dir)/$$f/$(exec)/"; \
-		echo "Copying $$license_source into $$license_dest"; \
-		cp $$license_source $$license_dest; \
-	done
-
-
-.PHONY: dist
-dist: clean-dist cross-build
-	@echo "Creating distribution directory" \
-	mkdir -p $(dist_dir) \
-	@echo "Creating distribution archives" \
-	$(eval FILES := $(shell ls $(build_dir)))
-	@for f in $(FILES); do \
-		echo "Creating distribution archive for $$f"; \
-		(cd $(build_dir)/$$f && tar -czf $(dist_dir)/$$f.tar.gz *); \
-	done
+.PHONY: tags
+tags: .GOPATH/.ok
+	@echo "Listing tags..."
+	$Q @git tag
 
 .PHONY: release
-release: dist
-	@echo $(VERSION)
-	@tag=$(VERSION); \
-	commit=$(git rev-list -n 1 $$tag); \
-	name=$$(git show -s $$tag --pretty=tformat:%N | sed -e '4q;d'); \
-	changelog=$$(git show -s $$tag --pretty=tformat:%N | sed -e '1,5d'); \
-	grease create-release --name "$$name" --notes "$$changelog" --assets "dist/*" $(github_repo) "$$tag" "$$commit"
+release: clean-dist
+	goreleaser
 
 ### Code not in the repository root? Another binary? Add to the path like this.
 # .PHONY: otherbin
