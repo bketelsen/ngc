@@ -68,7 +68,7 @@ dist: clean-dist build
 
 .PHONY: release
 release: dist
-	@tag=v$(VERSION); \
+	@tag=$(VERSION); \
 	commit=$(git rev-list -n 1 $$tag); \
 	name=$$(git show -s $$tag --pretty=tformat:%N | sed -e '4q;d'); \
 	changelog=$$(git show -s $$tag --pretty=tformat:%N | sed -e '1,5d'); \
