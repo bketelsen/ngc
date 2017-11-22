@@ -68,6 +68,7 @@ dist: clean-dist cross-build
 
 .PHONY: release
 release: dist
+	@echo $(VERSION)
 	@tag=$(VERSION); \
 	commit=$(git rev-list -n 1 $$tag); \
 	name=$$(git show -s $$tag --pretty=tformat:%N | sed -e '4q;d'); \
