@@ -6,7 +6,7 @@
 
 ## Output
 
-Run `newgo` in an empty directory.  *IT WILL OVERWRITE THINGS RIGHT NOW*
+Run `newgo` in an empty directory.  *IT WILL OVERWRITE THINGS RIGHT NOW*  In the future, it may move existing files or directories that would have been overwritten.
 
 `newgo` will create:
 
@@ -16,6 +16,13 @@ Run `newgo` in an empty directory.  *IT WILL OVERWRITE THINGS RIGHT NOW*
 - .envrc file with GOPATH settings.  To use this install github.com/direnv/direnv
 - .goreleaser.yml for releasing with [goreleaser](https://github.com/goreleaser/goreleaser)
 
+## Requirements and Notes
+
+You'll need a Github Personal Access token to do releases.
+
+Docker is required for Docker builds.
+
+Doesn't work in Windows without `make` installed.
 
 ## Project
 
@@ -41,3 +48,5 @@ make setup
 - list - list build targets
 - setup - create the project structure and install tools
 - test  - run tests
+- tags - list git tags
+- release - create a release from the currently tag
