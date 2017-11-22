@@ -18,23 +18,23 @@ all: test build
 
 .PHONY: clean-build
 clean-build:
-	@echo "Removing build files"
+	@echo "Removing build files" \
 	rm -rf $(build_dir)
 
 .PHONY: clean-dist
 clean-dist:
-	@echo "Removing distribution files"
+	@echo "Removing distribution files" \
 	rm -rf $(dist_dir)
 
 .PHONY: build
 build: .GOPATH/.ok
-	@echo "Building..."
-	$Q go install $(if $V,-v) $(VERSION_FLAGS) $(IMPORT_PATH)
+	@echo "Building..." \
+	$Q go install $(if $V,-v) $(VERSION_FLAGS) $(IMPORT_PATH) 
 
 cross-build: clean-build .GOPATH/.ok
-	@echo "Cross Building..."
-	mkdir -p $(build_dir)
-	@echo "Building targets"
+	@echo "Cross Building..." \
+	mkdir -p $(build_dir) \
+	@echo "Building targets" \
 	@gox $(VERSION_FLAGS) \
 		-osarch="darwin/amd64" \
 		-osarch="freebsd/amd64" \
@@ -56,10 +56,10 @@ cross-build: clean-build .GOPATH/.ok
 
 
 .PHONY: dist
-dist: clean-dist build
-	@echo "Creating distribution directory"
-	mkdir -p $(dist_dir)
-	@echo "Creating distribution archives"
+dist: clean-dist cross-build
+	@echo "Creating distribution directory" \
+	mkdir -p $(dist_dir) \
+	@echo "Creating distribution archives" \
 	$(eval FILES := $(shell ls $(build_dir)))
 	@for f in $(FILES); do \
 		echo "Creating distribution archive for $$f"; \
