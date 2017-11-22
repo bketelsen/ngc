@@ -122,6 +122,24 @@ appropriate for your project.`,
 			fmt.Print("execute envrc template: ", err)
 			return
 		}
+
+		gr := filepath.Join(getSrcPath(), "github.com", "bketelsen", "newgo", "templates", "goreleaser.yml.tmpl")
+		rt, err = template.ParseFiles(gr)
+		if err != nil {
+			fmt.Println(errors.Wrap(err, "reading goreleaser template"))
+			return
+		}
+		rm, err = os.Create(filepath.Join(ProjectPath(), ".goreleaser.yml"))
+		if err != nil {
+			fmt.Println("create goreleaser: ", err)
+			return
+		}
+		defer rm.Close()
+		err = rt.Execute(rm, data)
+		if err != nil {
+			fmt.Print("execute goreleaser template: ", err)
+			return
+		}
 	},
 }
 

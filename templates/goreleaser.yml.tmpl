@@ -3,7 +3,7 @@ release:
   github:
     owner: bketelsen
     name: newgo
-  name_template: '{{.Tag}}'
+    name_template: '{{`{{.Tag}}`}}'
 brew:
   commit_author:
     name: newgo
@@ -20,12 +20,11 @@ builds:
   goarm:
   - "6"
   main: .
-  ldflags: -s -w -X main.Version={{.Version}}  -X main.BuildDate={{.Date}}
+  ldflags: -s -w -X main.Version={{`{{.Version}}`}}  -X main.BuildDate={{`{{.Date}}`}}
   binary: newgo
 archive:
   format: tar.gz
-  name_template: '{{ .Binary }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{
-    .Arm }}{{ end }}'
+  name_template: '{{`{{.Binary}}`}}_{{`{{.Version}}`}}_{{`{{.Os}}`}}_{{`{{.Arch }}`}}{{`{{if .Arm}}`}}v{{`{{.Arm }}`}}{{`{{end }}`}}'
   files:
   - licence*
   - LICENCE*
@@ -38,7 +37,7 @@ archive:
 fpm:
   bindir: /usr/local/bin
 snapshot:
-  name_template: SNAPSHOT-{{ .Commit }}
+name_template: SNAPSHOT-{{`{{.Commit }}`}}
 checksum:
-  name_template: '{{ .ProjectName }}_{{ .Version }}_checksums.txt'
+name_template: '{{`{{.ProjectName }}`}}_{{`{{.Version }}`}}_checksums.txt'
 

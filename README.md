@@ -14,6 +14,7 @@ Run `newgo` in an empty directory.  *IT WILL OVERWRITE THINGS RIGHT NOW*
 - Makefile suitable for any Go project.  Based on a modified "HelloGopher" makefile by Cloudflare.
 - "main.go" with a Version and BuildTime variable that are populated by the makefile's `build` task.
 - .envrc file with GOPATH settings.  To use this install github.com/direnv/direnv
+- .goreleaser.yml for releasing with [goreleaser](https://github.com/goreleaser/goreleaser)
 
 
 ## Project
