@@ -24,6 +24,16 @@ build: .GOPATH/.ok
 	@echo "Building..."
     $Q go install $(if $V,-v) $(VERSION_FLAGS) $(IMPORT_PATH)
 
+.PHONY: clean-build
+clean-build:
+	@echo "Removing build files"
+	rm -rf $(build_dir)
+
+.PHONY: clean-dist
+clean-dist:
+	@echo "Removing distribution files"
+	rm -rf $(dist_dir)
+
 .PHONY: tags
 tags: .GOPATH/.ok
     @echo "Listing tags..."
