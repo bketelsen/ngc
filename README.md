@@ -4,6 +4,15 @@
 
 `newgo` is an opinionated helper utility that creates some boilerplate for a new Go command or package.
 
+Featuring:
+
+- HelloGopher - modified makefile inspired by Cloudflare's HelloGopher
+- goreleaser - release binaries to Github
+- Docker integration
+- Semantic Versions
+- Versioned Binaries with ldflags
+- Automatic GOPATH and PATH manipulation for a stand-alone build environment using `direnv`
+
 ## Output
 
 Run `newgo` in an empty directory.  *IT WILL OVERWRITE THINGS RIGHT NOW*  In the future, it may move existing files or directories that would have been overwritten.
@@ -16,6 +25,8 @@ Run `newgo` in an empty directory.  *IT WILL OVERWRITE THINGS RIGHT NOW*  In the
 - .envrc file with GOPATH settings.  To use this install github.com/direnv/direnv
 - .goreleaser.yml for releasing with [goreleaser](https://github.com/goreleaser/goreleaser)
 
+Note that `make setup` will create a ./.GOPATH directory, which will be your GOPATH for the project.  This makes your project standalone, living outside your system GOPATH if one is set.  `.envrc` will set this GOPATH and appropriate PATH when you enter the directory.
+
 ## Requirements and Notes
 
 You'll need a Github Personal Access token to do releases.
@@ -25,6 +36,8 @@ Docker is required for Docker builds.
 Doesn't work in Windows without `make` installed.
 
 ## Project
+
+Start with an empty directory where you intend to build your project.  Any directory will be OK, because `newgo` doesn't use the traditional $GOPATH.
 
 After running `newgo`, your project will have a Makefile which has everything you need to get started.  
 
