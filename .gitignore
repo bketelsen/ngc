@@ -4,3 +4,4 @@
 newgo
 dist/
 build/
+.envrc
