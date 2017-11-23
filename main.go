@@ -22,7 +22,7 @@ package main
 
 import "fmt"
 
-import "github.com/bketelsen/newgo/cmd"
+import "github.com/bketelsen/ngc/cmd"
 
 var (
 	Version   = "N/A"
