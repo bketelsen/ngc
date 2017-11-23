@@ -1,14 +1,14 @@
-project_name: newgo
+project_name: {{.DockerImage}}
 release:
   github:
     owner: bketelsen
-    name: newgo
+    name: {{.DockerImage}}
   name_template: '{{`{{.Tag}}`}}'
 brew:
   commit_author:
-    name: newgo
+    name: {{.DockerImage}}
     email: bketelsen@gmail.com
-  install: bin.install "newgo"
+  install: bin.install "{{.DockerImage}}"
 builds:
 - goos:
   - linux
