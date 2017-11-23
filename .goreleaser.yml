@@ -1,14 +1,14 @@
-project_name: newgo
+project_name: ngc
 release:
   github:
     owner: bketelsen
-    name: newgo
+    name: ngc
   name_template: '{{.Tag}}'
 brew:
   commit_author:
-    name: newgo
+    name: ngc
     email: bketelsen@gmail.com
-  install: bin.install "newgo"
+  install: bin.install "ngc"
 builds:
 - goos:
   - linux
@@ -21,7 +21,7 @@ builds:
   - "6"
   main: .
   ldflags: -s -w -X main.Version={{.Version}}  -X main.BuildDate={{.Date}}
-  binary: newgo
+  binary: ngc
 archive:
   format: tar.gz
   name_template: '{{ .Binary }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{
