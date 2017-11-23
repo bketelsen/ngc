@@ -1,12 +1,12 @@
 # import path is where your repository can be found.
 # To import subpackages, always prepend the full import path.
 # If you change this, run `make clean`. Read more: https://git.io/vM7zV
-IMPORT_PATH := github.com/bketelsen/newgo
-DOCKER_IMAGE := newgo
+IMPORT_PATH := github.com/bketelsen/ngc
+DOCKER_IMAGE := ngc
 build_dir := $(CURDIR)/bin
 dist_dir := $(CURDIR)/dist
 exec := $(DOCKER_IMAGE)
-github_repo := bketelsen/newgo
+github_repo := bketelsen/ngc
 
 # comment this line out for quieter things
 V := 1 # When V is set, print commands and build progress.
@@ -26,6 +26,7 @@ safebuild:
 .PHONY: build
 build:
 	@echo "Building..."
+	$Q rm $(GOPATH)/bin/$(DOCKER_IMAGE)
 	$Q go install $(if $V,-v) $(VERSION_FLAGS) $(IMPORT_PATH)
 
 .PHONY: tags
