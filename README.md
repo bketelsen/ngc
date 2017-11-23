@@ -1,8 +1,8 @@
-## newgo
+## ngc - New Go Command
 
 ## Description
 
-`newgo` is an opinionated helper utility that creates some boilerplate for a new Go command or package.
+`ngc` is an opinionated helper utility that creates some boilerplate for a new Go command or package.
 
 Featuring:
 
@@ -14,9 +14,9 @@ Featuring:
 
 ## Output
 
-Run `newgo` in an empty directory.  *IT WILL OVERWRITE THINGS RIGHT NOW*  In the future, it may move existing files or directories that would have been overwritten.
+Run `ngc` in an empty directory.  *IT WILL OVERWRITE THINGS RIGHT NOW*  In the future, it may move existing files or directories that would have been overwritten.
 
-`newgo` will create:
+`ngc` will create:
 
 - Dockerfile for a project with appropriate settings for a Go command
 - Makefile suitable for any Go project.  Based on a modified "HelloGopher" makefile by Cloudflare.
@@ -37,7 +37,7 @@ Doesn't work in Windows without `make` installed.
 
 Start with an empty directory where you intend to build your project.  This directory should be in your GOPATH.
 
-After running `newgo`, your project will have a Makefile which has everything you need to get started.  
+After running `ngc`, your project will have a Makefile which has everything you need to get started.  
 
 Start with `setup`:
 

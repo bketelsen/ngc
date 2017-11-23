@@ -26,7 +26,7 @@ safebuild:
 .PHONY: build
 build:
 	@echo "Building..."
-	$Q rm $(GOPATH)/bin/$(DOCKER_IMAGE)
+	$Q rm -f $(GOPATH)/bin/$(DOCKER_IMAGE)
 	$Q go install $(if $V,-v) $(VERSION_FLAGS) $(IMPORT_PATH)
 
 .PHONY: tags
