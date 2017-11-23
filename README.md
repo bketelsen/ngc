@@ -11,7 +11,6 @@ Featuring:
 - Docker integration
 - Semantic Versions
 - Versioned Binaries with ldflags
-- Automatic GOPATH and PATH manipulation for a stand-alone build environment using `direnv`
 
 ## Output
 
@@ -22,10 +21,9 @@ Run `newgo` in an empty directory.  *IT WILL OVERWRITE THINGS RIGHT NOW*  In the
 - Dockerfile for a project with appropriate settings for a Go command
 - Makefile suitable for any Go project.  Based on a modified "HelloGopher" makefile by Cloudflare.
 - "main.go" with a Version and BuildTime variable that are populated by the makefile's `build` task.
-- .envrc file with GOPATH settings.  To use this install github.com/direnv/direnv
+- .envrc - To use this install github.com/direnv/direnv
 - .goreleaser.yml for releasing with [goreleaser](https://github.com/goreleaser/goreleaser)
 
-Note that `make setup` will create a ./.GOPATH directory, which will be your GOPATH for the project.  This makes your project standalone, living outside your system GOPATH if one is set.  `.envrc` will set this GOPATH and appropriate PATH when you enter the directory.
 
 ## Requirements and Notes
 
@@ -37,7 +35,7 @@ Doesn't work in Windows without `make` installed.
 
 ## Project
 
-Start with an empty directory where you intend to build your project.  Any directory will be OK, because `newgo` doesn't use the traditional $GOPATH.
+Start with an empty directory where you intend to build your project.  This directory should be in your GOPATH.
 
 After running `newgo`, your project will have a Makefile which has everything you need to get started.  
 
