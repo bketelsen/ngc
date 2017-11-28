@@ -35,7 +35,7 @@ tags:
 	$Q @git tag
 
 .PHONY: release
-release: clean-dist build
+release: clean-dist build $(GOPATH)/bin/goreleaser
 	goreleaser
 
 
@@ -169,3 +169,5 @@ $(GOPATH)/bin/goimports:
         { echo "Vendored goimports not found, try running 'make setup'..."; exit 1; }
 	$Q go install golang.org/x/tools/cmd/goimports
 
+$(GOPATH)/bin/goreleaser:
+	go get -u github.com/goreleaser/goreleaser

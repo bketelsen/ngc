@@ -37,21 +37,21 @@ var cfgFile string
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
-	Use:   "newgo",
+	Use:   "ngc",
 	Short: "A tool for initializing a new Go project",
-	Long: `newgo is a tool for initializing a new Go project.  It creates a dockerfile and Makefile 
+	Long: `ngc is a tool for initializing a new Go project.  It creates a dockerfile and Makefile 
 appropriate for your project.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("newgo executed")
+		fmt.Println("ngc executed")
 		fmt.Println(ProjectPath())
 		data := make(map[string]string)
 		data["ProjectPath"] = guessImportPath()
 		data["DockerImage"] = DockerImage()
 		data["GithubRepo"] = strings.Replace(guessImportPath(), "github.com/", "", -1)
 
-		dockerfile := filepath.Join(getSrcPath(), "github.com", "bketelsen", "newgo", "templates", "Dockerfile.tmpl")
+		dockerfile := filepath.Join(getSrcPath(), "github.com", "bketelsen", "ngc", "templates", "Dockerfile.tmpl")
 		rt, err := template.ParseFiles(dockerfile)
 		if err != nil {
 			fmt.Println(errors.Wrap(err, "reading dockerfile template"))
@@ -69,7 +69,7 @@ appropriate for your project.`,
 			return
 		}
 
-		makefile := filepath.Join(getSrcPath(), "github.com", "bketelsen", "newgo", "templates", "Makefile.tmpl")
+		makefile := filepath.Join(getSrcPath(), "github.com", "bketelsen", "ngc", "templates", "Makefile.tmpl")
 		rt, err = template.ParseFiles(makefile)
 		if err != nil {
 			fmt.Println(errors.Wrap(err, "reading makefile template"))
@@ -87,7 +87,7 @@ appropriate for your project.`,
 			return
 		}
 
-		main := filepath.Join(getSrcPath(), "github.com", "bketelsen", "newgo", "templates", "main.go.tmpl")
+		main := filepath.Join(getSrcPath(), "github.com", "bketelsen", "ngc", "templates", "main.go.tmpl")
 		rt, err = template.ParseFiles(main)
 		if err != nil {
 			fmt.Println(errors.Wrap(err, "reading makefile template"))
@@ -105,7 +105,7 @@ appropriate for your project.`,
 			return
 		}
 
-		envrc := filepath.Join(getSrcPath(), "github.com", "bketelsen", "newgo", "templates", "envrc.tmpl")
+		envrc := filepath.Join(getSrcPath(), "github.com", "bketelsen", "ngc", "templates", "envrc.tmpl")
 		rt, err = template.ParseFiles(envrc)
 		if err != nil {
 			fmt.Println(errors.Wrap(err, "reading envrc template"))
@@ -123,7 +123,7 @@ appropriate for your project.`,
 			return
 		}
 
-		gr := filepath.Join(getSrcPath(), "github.com", "bketelsen", "newgo", "templates", "goreleaser.yml.tmpl")
+		gr := filepath.Join(getSrcPath(), "github.com", "bketelsen", "ngc", "templates", "goreleaser.yml.tmpl")
 		rt, err = template.ParseFiles(gr)
 		if err != nil {
 			fmt.Println(errors.Wrap(err, "reading goreleaser template"))
@@ -158,7 +158,7 @@ func init() {
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
-	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.newgo.yaml)")
+	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.ngc.yaml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -178,9 +178,9 @@ func initConfig() {
 			os.Exit(1)
 		}
 
-		// Search config in home directory with name ".newgo" (without extension).
+		// Search config in home directory with name ".ngc" (without extension).
 		viper.AddConfigPath(home)
-		viper.SetConfigName(".newgo")
+		viper.SetConfigName(".ngc")
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
